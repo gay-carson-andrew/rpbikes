@@ -1,0 +1,169 @@
+// Place all the styles related to the page controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/**/
+
+/*Rent Page Images*/
+.product {
+	width: 17vw;
+	float: left;
+}
+.product_section {
+	h2 {
+		margin-bottom: .2em;
+	}
+	p{
+	  img {
+	    margin-right: 1em;
+	  }
+	}
+	.check {
+		position: absolute; 
+		bottom: 1em;
+		right: 1.2em;
+	}
+	.rate {
+		margin-right: 1.5em;
+	}
+	position: relative;
+	margin-top: 1em;
+	background-color: rgba(0,0,0,0.2);
+	border-radius: 1em;
+	padding: .6em;
+}
+.button{
+	text-decoration: none;
+	color: black;
+	background-color: #2DC6FF;
+	border-radius: 1em;
+	padding: .5em;
+	background: linear-gradient(to bottom,  #2dc6ff 10%,#d3f6fe 100%);
+	text-shadow: 2px 2px 0px rgba(255,255,255,.5);
+	box-shadow:  0px 2px 5px 0px rgba(0, 0, 0, .4);
+}
+.clearer {
+    clear: both;
+}
+/*Test nav*/
+nav {
+  text-align: center;
+  width:100%;
+  bottom: 5px;
+  background: rgba(0,0,0,0.5);
+  position:absolute;
+  z-index: 10;
+}
+/*end Test nav*/
+
+/*Test removebullets*/
+ul
+{
+list-style-type: none;
+}
+/**/
+
+
+
+/*Fix for href a element styling... weird*/
+/*a[href^="tel"]{*/
+/*    color:white;*/
+/*    text-decoration:none;*/
+/*}*/
+
+body {
+
+}
+header { 
+  width:100%;
+  height: 5vh; 
+  background-size: 100% 100%; 
+  position: relative;
+  background-image: none;
+  border-bottom: 1px solid black;
+}
+
+/*Force bottom footer*/
+footer {
+	bottom: 0;
+	position: absolute;
+	width:98%;
+}
+
+
+/*Fix for HTML5 Image to left of paragraph*/
+p.clear {clear: both;}
+
+/*---------- Media Querys ----------*/
+
+@media (min-width:320px) { 
+/* smartphones, iPhone, portrait 480x320 phones */ }
+@media (min-width:481px) { 
+/* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px) { 
+/* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media (min-width:961px) {
+	header {
+	  
+	  width:100%;
+	  height: 40vh; 
+	  background-size: 100% 100%; 
+	  position: relative;
+	  border-bottom: 1px solid black;
+	}
+
+		/*Test Slider*/
+
+	$firstPer: 0%;
+	$secondPer: 5%;
+	$thirdPer: 45%;
+	$forthPer: 50%;
+
+	@mixin setupSliderAnimation() {
+			#{$firstPer} {opacity: 1}
+			#{$secondPer} {opacity: 0}
+			#{$thirdPer} {opacity: 0}
+			#{$forthPer} {opacity: 1}
+	}
+	@mixin setupSlider() {
+		$sliderDelay: 10s;
+		$sliderDuration: 20s;
+		$sliderN: 2;
+		@for $sliderN from 1 through 2 {
+			&:nth-child(#{$sliderN}) {
+				animation-name: slider;
+				animation-timing-function: linear;
+				animation-iteration-count: infinite;
+				animation-direction: normal;
+				animation-duration: $sliderDuration;
+				animation-delay: $sliderDelay;
+				z-index: $sliderN;
+				$sliderN: $sliderN - 1;
+				$sliderDelay: $sliderDelay + (($sliderDuration / 2));
+	  	}
+		}
+	}
+
+	@-webkit-keyframes slider {
+		@include setupSliderAnimation() {
+	    
+	  }
+	}
+	.slider {
+		position: absolute;
+		width:100%;
+		height:100%;
+		@include setupSlider() {
+	    
+	  }
+	}
+
+
+	/*End Test Slider*/
+ /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+ }
+@media (min-width:1025px) { 
+/* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { 
+
+/* hi-res laptops and desktops */ }

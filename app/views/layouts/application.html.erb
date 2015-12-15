@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cartapp</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <header>
+    <h1> Rolling Pine Bike Rentals </h1>
+
+    <span id="headerSlider" alt="">
+      <% Dir.glob("app/assets/images/header/*").each do |image| %> 
+        <%-# This should be placed in a controler, the variable before .each -%>
+        <%= image_tag "header/#{image.split('/').last}", :class => "slider" %>
+      <% end %>
+    </span>
+
+    <nav id="nav">
+      <div id="page_nav">
+        <% if user_signed_in? %>
+          <%= link_to "Rent", page_rent_path %>
+        <% end %>
+        <%= link_to "About", root_path %>
+        <%= link_to "Faq", page_faq_path %>
+        <%= link_to "Bike Trails", page_contact_path %>
+      </div>
+      
+      <div id="sign_in">
+        <% if user_signed_in? %>
+          <%= link_to "Waiver", page_waiver_path, :id => "onClick" %>
+          <%= link_to "Cart", cart_path %>
+          <%= link_to "Contact", page_contact_path %>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+        <% else %>
+          <%= link_to "Login", new_user_session_path %>
+          <%= link_to "Register", new_user_registration_path %>
+        <% end %>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= yield %>
+  </main>
+
+  <footer>
+    
+  </footer>
+</body>
+</html>

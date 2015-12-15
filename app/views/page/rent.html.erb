@@ -1,0 +1,23 @@
+<% @products.each do |product| %>
+	<div class="product_section">
+		<h2><%= product.title %></h2>
+
+		<p>
+			<%= image_tag product.image_url,  algin: "left", class: "product" %>
+			<%= product.description %>
+		</p>
+		<div class="check">
+			<span class="rate">
+				<%= number_to_currency(product.price, :unit => '$') %>
+				<%= radio_button_tag product.id, "half"%> Half Day
+			</span>
+			<span class="rate"> 
+				<%= number_to_currency((product.price*2)-5, :unit => '$') %>
+	    	<%= radio_button_tag product.id, "full"%> Full Day
+			</span>
+			<a class="button" href="/cart/<%= product.id %>"> Add To Cart </a>
+		</div>
+		<div class="clearer"></div>
+    
+	</div>
+<% end %>

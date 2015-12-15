@@ -1,0 +1,50 @@
+<h1>Your Requested Reservations</h1>
+<% if @cart.empty? %>
+  <p>You have no reservation requests!</p>  
+<% else %>
+  <%= link_to 'Empty Cart', cart_clear_path %>
+<% end %>
+
+<br><br><br>
+
+<% total = 0 %>
+
+<ul>
+  <% @cart.each do | id, quantity | %>
+
+    <% product = Product.find_by_id(id) %>
+      <li>
+        <%= link_to product.title, product %> 
+        <p>
+          <span>Price: <%= number_to_currency(product.price, :unit => '$') %> </span>
+          <br>
+          <%= product.description %>
+          <br>
+          <span>Quantity: <a href="/cart/<%= product.id %>"><</a> <%= quantity %> <a href="/cart/<%= product.id %>">></a> </span>
+          <%= form_tag charges_path do %>
+            <article>
+             <label class="amount">
+               Amount: <% product.price %> for <span>24 Hours</span>
+             </label>
+          </article>   
+        <% end %>
+      </p>
+    </li>
+    <% total += quantity * product.price %>
+  <% end %>
+
+  <br><br><br>
+
+  <p>
+    <b>
+    Total: <%= number_to_currency(total, :unit => '$') %>
+    </b>
+  </p>
+
+  <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+            data-description="A month's subscription"
+            data-amount="<% total %>">
+  </script> 
+
+</ul>
